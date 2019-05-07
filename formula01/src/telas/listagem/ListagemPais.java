@@ -5,6 +5,9 @@
  */
 package telas.listagem;
 
+import dao.PaisDao;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import telas.manutencao.ManutencaoPais;
 
 /**
@@ -19,7 +22,11 @@ public class ListagemPais extends javax.swing.JDialog {
     public ListagemPais(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        atualizarTabela();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,13 +38,13 @@ public class ListagemPais extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -48,7 +55,7 @@ public class ListagemPais extends javax.swing.JDialog {
                 "Sigla", "Nome"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
 
         jButton1.setText("Novo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,10 +73,10 @@ public class ListagemPais extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(113, 113, 113)
@@ -95,7 +102,16 @@ public class ListagemPais extends javax.swing.JDialog {
         ManutencaoPais manutencao = new ManutencaoPais(null,true);
         manutencao.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+     public void atualizarTabela(){
+        DefaultTableModel modelo = new DefaultTableModel(); 
+        modelo.addColumn("Sigla");
+        modelo.addColumn("Nome");
+        List<String[]> resultados = PaisDao.consultar();
+        for(String[] linha: resultados){
+            modelo.addRow(linha);
+        }
+        tabela.setModel(modelo);
+    }
     /**
      * @param args the command line arguments
      */
@@ -142,6 +158,6 @@ public class ListagemPais extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
