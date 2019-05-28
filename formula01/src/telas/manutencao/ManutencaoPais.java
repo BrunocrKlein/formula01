@@ -7,19 +7,29 @@ package telas.manutencao;
 
 import static dao.PaisDao.inserir;
 import javax.swing.JOptionPane;
+import telas.listagem.ListagemPais;
 
 /**
  *
  * @author Administrador
  */
 public class ManutencaoPais extends javax.swing.JDialog {
-
+            private ListagemPais listagem;
     /**
      * Creates new form ManutencaoPais
      */
     public ManutencaoPais(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+     public ManutencaoPais(java.awt.Frame parent, boolean modal, ListagemPais listagem) {
+        super(parent, modal);
+        initComponents();
+        this.listagem = listagem;
+        
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }
 
     /**
@@ -36,10 +46,10 @@ public class ManutencaoPais extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jtfSigla = new javax.swing.JTextField();
         jtfNome = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JToggleButton();
+        btnCancelar = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -56,18 +66,18 @@ public class ManutencaoPais extends javax.swing.JDialog {
             }
         });
 
-        jToggleButton1.setText("Alterar");
+        btnAlterar.setText("Alterar");
 
-        jButton1.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
 
-        jButton2.setText("Adicionar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAdicionarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Exluir");
+        btnExcluir.setText("Exluir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,13 +91,13 @@ public class ManutencaoPais extends javax.swing.JDialog {
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnAdicionar)
                         .addGap(30, 30, 30)
-                        .addComponent(jToggleButton1)
+                        .addComponent(btnAlterar)
                         .addGap(45, 45, 45)
-                        .addComponent(jButton3)
+                        .addComponent(btnExcluir)
                         .addGap(48, 48, 48)
-                        .addComponent(jButton1))
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,10 +123,10 @@ public class ManutencaoPais extends javax.swing.JDialog {
                     .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jToggleButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1))
+                    .addComponent(btnAdicionar)
+                    .addComponent(btnAlterar)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnCancelar))
                 .addGap(56, 56, 56))
         );
 
@@ -127,14 +137,14 @@ public class ManutencaoPais extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfSiglaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
          boolean resultado = inserir(jtfSigla.getText(),jtfNome.getText());
         if (resultado){
             JOptionPane.showMessageDialog(null, "Inserido com sucesso!");
         }else{
             JOptionPane.showMessageDialog(null, "Erro!");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,13 +189,13 @@ public class ManutencaoPais extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnAdicionar;
+    private javax.swing.JToggleButton btnAlterar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField jtfNome;
     private javax.swing.JTextField jtfSigla;
     // End of variables declaration//GEN-END:variables
